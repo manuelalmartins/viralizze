@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  /* Container geral da página */
+  .register-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 3rem; /* Espaço para a Navbar */
+  }
+  
+  /* Estilo do Box do Formulário */
+  .register-box {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 3rem;
+    width: 100%;
+    max-width: 400px; /* Largura máxima */
+    margin-top: 2rem;
+  }
+  
+  /* Título 'Crie sua Conta' */
+  .register-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #6e44ff;
+    text-align: center;
+    margin-bottom: 1.5rem; /* Espaço abaixo do título */
+  }
+  
+  /* Estilo dos inputs */
+  .register-form input {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+  }
+  
+  /* Estilo do botão */
+  .register-form button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #6e44ff;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .register-form button:hover {
+    background-color: #5d39cc;
+  }
+  
+  /* Link para login */
+  .login-link p {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .login-link a {
+    color: #6e44ff;
+    text-decoration: none;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .register-box {
+      padding: 2rem;
+    }
+  
+    .register-title {
+      font-size: 1.2rem;
+    }
+  }
+  

@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Link para navegação
+import { Link } from 'react-router-dom'; 
 import '../styles/register.css';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import BackButton from '../components/BackButton';
 
 const Register: React.FC = () => {
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [nome, setNome] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [senha, setSenha] = useState<string>('');
+  const [confirmarSenha, setConfirmarSenha] = useState<string>('');
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Nome:', nome, 'Email:', email, 'Senha:', senha);
+    console.log('Nome:', nome, 'Email:', email, 'Senha:', senha, 'Confirmar Senha:', confirmarSenha);
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="register-container">
+    <div className="register-container">
+      <div className="left-section">
+        <h1>Seja bem-vindo, Criador!</h1>
+        <p>Já tem uma conta? <Link to="/login">Faça login aqui.</Link></p>
+      </div>
+
+      <div className="right-section">
+        <BackButton />
         <div className="register-box">
           <h2 className="register-title">Crie sua Conta</h2>
           <form onSubmit={handleRegister} className="register-form">
@@ -42,15 +47,18 @@ const Register: React.FC = () => {
               onChange={(e) => setSenha(e.target.value)}
               required
             />
+            <input
+              type="password"
+              placeholder="Confirme a Senha"
+              value={confirmarSenha}
+              onChange={(e) => setConfirmarSenha(e.target.value)}
+              required
+            />
             <button type="submit">Cadastrar</button>
           </form>
-          <div className="login-link">
-            <p>Já tem uma conta? <Link to="/login">Faça login</Link></p>
-          </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 };
 

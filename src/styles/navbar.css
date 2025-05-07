@@ -1,43 +1,82 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .navbar {
-    background-color: #6e44ff;
-    padding: 1rem 0;
-  }
-  
+/* Estilo geral da navbar */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #eaeaea;
+  padding: 1rem 2rem;  /* Aumentando o padding para mais espaço */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Container da navbar */
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Logo da navbar */
+.navbar-logo {
+  font-size: 1.8rem;  /* Aumentando o tamanho do logo */
+  font-weight: 700;   /* Colocando o logo mais em negrito */
+  color: #6c2bd9;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.navbar-logo:hover {
+  color: #5a1db1;  /* Cor mais escura no hover */
+}
+
+/* Links da navbar */
+.navbar-links {
+  display: flex;
+  gap: 2rem;   /* Aumentando o espaço entre os links */
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #444;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.navbar-links a:hover {
+  color: #6c2bd9;
+  transform: translateY(-2px);  /* Efeito de elevação ao passar o mouse */
+}
+
+/* Estilo para dispositivos móveis */
+@media (max-width: 768px) {
   .navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;   /* Garantir que a largura seja 100% */
   }
-  
+
   .navbar-logo {
-    font-size: 1.75rem;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+    font-size: 1.6rem;  /* Logo um pouco menor em telas pequenas */
+    margin-bottom: 1rem; /* Espaçamento abaixo do logo */
   }
-  
+
   .navbar-links {
-    display: flex;
-    gap: 1rem;
+    margin-top: 0.5rem;
+    flex-direction: column;
+    gap: 1rem;   /* Ajustando o espaço entre os links */
+    width: 100%;
+    align-items: flex-start;
   }
-  
-  .navbar-link {
-    color: white;
-    text-decoration: none;
+
+  .navbar-links a {
     font-size: 1.1rem;
-    transition: color 0.3s ease;
+    padding: 0.5rem 0;
+    width: 100%;  /* Para que os links ocupem toda a largura */
+    text-align: left;
   }
-  
-  .navbar-link:hover {
-    color: #f2f2f2;
-  }
-  
+}

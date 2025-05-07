@@ -1,0 +1,29 @@
+
+:root {
+  --roxo-escuro: #240046;
+  --roxo-principal: #996FD6;
+  --roxo-clarinho: #D0C9EA;
+  --branco: #ffffff;
+  --cinza-claro: #f4f4f4;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter;
+  background-color: var(--cinza-claro);
+}
+
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 3rem; 
+}

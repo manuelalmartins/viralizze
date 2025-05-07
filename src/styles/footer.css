@@ -1,36 +1,24 @@
-.footer {
-    background-color: #6e44ff;
-    padding: 2rem 0;
-    color: white;
-    margin-top: auto; /* Coloca o Footer no final da página */
+/* Footer */
+footer {
+  background-color: var(--roxo-escuro);
+  color: var(--branco);
+  padding: 2rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+footer a {
+  color: var(--roxo-principal);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  footer {
+    font-size: 0.9rem;
   }
-  
-  .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .footer-text {
-    font-size: 1rem;
-  }
-  
-  .footer-links {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .footer-link {
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-  }
-  
-  .footer-link:hover {
-    color: #f2f2f2;
-  }
-  
+}

@@ -1,21 +1,22 @@
-import React from 'react';
-import '../styles/navbar.css';
+import { Link } from "react-router-dom";
+import "../styles/navbar.css";
 
-const Navbar: React.FC = () => {
+function Navbar() {
   return (
-    <nav className="navbar">
+    <header className="navbar">
       <div className="navbar-container">
-        <a href="/" className="navbar-logo">
+        <Link to="/" className="navbar-logo">
           Viralizze
-        </a>
-        <div className="navbar-links">
-          <a href="/" className="navbar-link">Home</a>
-          <a href="/login" className="navbar-link">Login</a>
-          <a href="/register" className="navbar-link">Cadastrar</a>
-        </div>
+        </Link>
+
+        <nav className="navbar-links">
+          <Link to="/home">Início</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Cadastro</Link>
+        </nav>
       </div>
-    </nav>
+    </header>
   );
-};
+}
 
 export default Navbar;

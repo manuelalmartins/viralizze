@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Importando o Link para navegação
+import { Link } from 'react-router-dom'; 
 import '../styles/login.css';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import BackButton from '../components/BackButton';
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [senha, setSenha] = useState<string>('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Email:', email, 'Senha:', senha);
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="login-container">
+    <div className="login-container">
+      <div className="left-section">
+        <h1>Seja bem-vindo, Influenciador!</h1>
+        <p>Quer encontrar influenciadores? <Link to="/find-influencers">Clique aqui.</Link></p>
+      </div>
+
+      <div className="right-section">
+        <BackButton />
         <div className="login-box">
-          <h2 className="login-title">Bem-vindo</h2>
+          <h2 className="login-title">Faça Login</h2>
           <form onSubmit={handleLogin} className="login-form">
             <input
               type="email"
@@ -34,6 +38,9 @@ const Login: React.FC = () => {
               onChange={(e) => setSenha(e.target.value)}
               required
             />
+            <div className="forgot-password">
+              <Link to="/forgot-password">Esqueceu sua senha?</Link>
+            </div>
             <button type="submit">Entrar</button>
           </form>
           <div className="register-link">
@@ -41,8 +48,7 @@ const Login: React.FC = () => {
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 };
 

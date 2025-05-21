@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 import BackButton from '../components/BackButton';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [senha, setSenha] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     console.log('Email:', email, 'Senha:', senha);
+
+    navigate('/dashboardinfluencer');
   };
 
   return (
     <div className="login-container">
       <div className="left-section">
         <h1>Seja bem-vindo, Influenciador!</h1>
-        <p>Quer encontrar influenciadores? <Link to="/find-influencers">Clique aqui.</Link></p>
+        <p>
+          Quer encontrar influenciadores?{' '}
+          <Link to="/find-influencers">Clique aqui.</Link>
+        </p>
       </div>
 
       <div className="right-section">
@@ -44,7 +51,9 @@ const Login: React.FC = () => {
             <button type="submit">Entrar</button>
           </form>
           <div className="register-link">
-            <p>Não tem conta? <Link to="/register">Crie a sua</Link></p>
+            <p>
+              Não tem conta? <Link to="/register">Crie a sua</Link>
+            </p>
           </div>
         </div>
       </div>

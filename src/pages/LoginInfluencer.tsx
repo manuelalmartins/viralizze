@@ -30,9 +30,11 @@ const LoginInfluencer: React.FC = () => {
         return;
       }
 
-      localStorage.setItem('user', JSON.stringify(data.user));
-      console.log('Login realizado com sucesso:', data);
-      navigate('/dashboardinfluencer');
+      // Salvar o influencer e o id separadamente no localStorage
+      localStorage.setItem('user', JSON.stringify(data.influencer));
+      localStorage.setItem('influencerId', data.influencer.id);
+
+      navigate('/dashboard-influencer');
     } catch (error) {
       alert('Erro na conexão com o servidor.');
     }
@@ -43,8 +45,7 @@ const LoginInfluencer: React.FC = () => {
       <div className="left-section">
         <h1>Seja bem-vindo, Influenciador!</h1>
         <p>
-          Quer encontrar influenciadores?{' '}
-          <Link to="/login-brand">Clique aqui.</Link>
+          Quer encontrar influenciadores? <Link to="/login-brand">Clique aqui.</Link>
         </p>
       </div>
 
@@ -73,7 +74,7 @@ const LoginInfluencer: React.FC = () => {
                 type="button"
                 className="toggle-password-btn"
                 onClick={() => setShowSenha(!showSenha)}
-                aria-label={showSenha ? 'Esconder senha' : 'Mostrar senha'}
+                aria-label="Mostrar/Esconder senha"
                 tabIndex={-1}
               >
                 {showSenha ? <FaEyeSlash /> : <FaEye />}
@@ -92,6 +93,7 @@ const LoginInfluencer: React.FC = () => {
 
             <button type="submit">Entrar</button>
           </form>
+
           <div className="register-link">
             <p>
               Não tem conta? <Link to="/register-influencer">Crie a sua</Link>

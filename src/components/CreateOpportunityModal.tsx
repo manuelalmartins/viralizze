@@ -1,26 +1,37 @@
-// src/components/CreateOpportunityModal.tsx
-import React, { useState } from 'react';
-import TagsInput from './TagsInput';
-import '../styles/dashboardbrand.css';
+import React, { useState, useEffect } from 'react';
+import '../styles/opportunitymodal.css'
 
-interface CreateOpportunityModalProps {
+interface OpportunityModalProps {
+  opportunity?: {
+    id: string;
+    title: string;
+    description: string;
+    requirements: string;
+    hashtags: { tag: string }[];
+  };
   onClose: () => void;
-  onCreated?: () => void;
+  onSaved: () => void;
 }
 
-const CreateOpportunityModal: React.FC<CreateOpportunityModalProps> = ({ onClose, onCreated }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [requirements, setRequirements] = useState('');
-  const [tags, setTags] = useState<string[]>([]);
+const OpportunityModal: React.FC<OpportunityModalProps> = ({ opportunity, onClose, onSaved }) => {
+  const [title, setTitle] = useState(opportunity?.title || '');
+  const [description, setDescription] = useState(opportunity?.description || '');
+  const [requirements, setRequirements] = useState(opportunity?.requirements || '');
+  const [hashtags, setHashtags] = useState(
+    opportunity ? opportunity.hashtags.map(h => h.tag).join(', ') : ''
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [successMsg, setSuccessMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    setTitle(opportunity?.title || '');
+    setDescription(opportunity?.description || '');
+    setRequirements(opportunity?.requirements || '');
+    setHashtags(opportunity ? opportunity.hashtags.map(h => h.tag).join(', ') : '');
+  }, [opportunity]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
-    setSuccessMsg(null);
 
     if (!title.trim()) {
       setError('Título é obrigatório.');
@@ -28,99 +39,98 @@ const CreateOpportunityModal: React.FC<CreateOpportunityModalProps> = ({ onClose
     }
 
     setLoading(true);
+    setError(null);
 
     try {
-      const response = await fetch('http://localhost:3333/opportunities', {
-        method: 'POST',
+      const brandId = localStorage.getItem('brandId');
+      if (!brandId) {
+        setError('ID da marca não encontrado. Faça login novamente.');
+        setLoading(false);
+        return;
+      }
+
+      const body = {
+        title,
+        description,
+        requirements,
+        hashtags: hashtags
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter((tag) => tag.length > 0),
+      };
+
+      if (!opportunity) {
+        Object.assign(body, { brandId });
+      }
+
+      const url = opportunity
+        ? `http://localhost:3333/opportunities/${opportunity.id}`
+        : 'http://localhost:3333/opportunities';
+
+      const method = opportunity ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, description, requirements, hashtags: tags }),
-        credentials: 'include' // se você usar cookies para autenticação
+        body: JSON.stringify(body),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || 'Erro ao criar oportunidade.');
+        setError(data.error || 'Erro ao salvar oportunidade.');
         setLoading(false);
         return;
       }
 
-      setSuccessMsg('Oportunidade criada com sucesso!');
-      setTitle('');
-      setDescription('');
-      setRequirements('');
-      setTags([]);
-
-      if (onCreated) onCreated();
-
-      setTimeout(() => {
-        setSuccessMsg(null);
-        onClose();
-      }, 1500);
-
-    } catch (err) {
-      setError('Erro de conexão com o servidor.');
+      onSaved();
+      onClose();
+    } catch {
+      setError('Erro ao conectar com o servidor.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
-        <h2>Criar nova oportunidade</h2>
-        <form onSubmit={handleSubmit} className="form-opportunity">
-          <label>
-            Título <span className="required">*</span>
-            <input
-              type="text"
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-              placeholder="Título da oportunidade"
-              required
-            />
-          </label>
-
-          <label>
-            Descrição
-            <textarea
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-              placeholder="Descreva a oportunidade e o que você espera"
-              rows={4}
-            />
-          </label>
-
-          <label>
-            Requisitos
-            <textarea
-              value={requirements}
-              onChange={e => setRequirements(e.target.value)}
-              placeholder="Liste os requisitos para os influenciadores"
-              rows={3}
-            />
-          </label>
-
-          <label>
-            Hashtags
-            <TagsInput tags={tags} onChange={setTags} />
-          </label>
-
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <h2>{opportunity ? 'Editar Oportunidade' : 'Criar Oportunidade'}</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Título *"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+          <textarea
+            placeholder="Descrição"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <textarea
+            placeholder="Requisitos"
+            value={requirements}
+            onChange={(e) => setRequirements(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Hashtags (separadas por vírgula)"
+            value={hashtags}
+            onChange={(e) => setHashtags(e.target.value)}
+          />
           {error && <p className="error-msg">{error}</p>}
-          {successMsg && <p className="success-msg">{successMsg}</p>}
-
-          <div className="modal-buttons">
-            <button type="submit" disabled={loading}>
-              {loading ? 'Criando...' : 'Criar oportunidade'}
-            </button>
-            <button type="button" onClick={onClose} disabled={loading}>
-              Cancelar
-            </button>
-          </div>
+          <button type="submit" disabled={loading}>
+            {loading ? (opportunity ? 'Salvando...' : 'Criando...') : (opportunity ? 'Salvar' : 'Criar')}
+          </button>
+          <button type="button" onClick={onClose} disabled={loading}>
+            Cancelar
+          </button>
         </form>
       </div>
     </div>
   );
 };
 
-export default CreateOpportunityModal;
+export default OpportunityModal;

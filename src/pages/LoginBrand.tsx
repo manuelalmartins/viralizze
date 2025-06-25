@@ -29,8 +29,15 @@ const LoginBrand: React.FC = () => {
         return;
       }
 
-      console.log(data);
-      navigate('/dashboardmarca');
+      // **Salva o brandId no localStorage**
+      if (data.brand && data.brand.id) {
+        localStorage.setItem('brandId', data.brand.id);
+      } else {
+        alert('ID da marca não recebido. Faça login novamente.');
+        return;
+      }
+
+      navigate('/dashboard-brand');
     } catch (error) {
       alert('Erro ao conectar com o servidor.');
     }

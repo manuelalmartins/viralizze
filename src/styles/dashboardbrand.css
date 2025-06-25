@@ -1,0 +1,186 @@
+/* src/styles/dashboardbrand.css */
+
+.dashboard-brand-container {
+  padding: 2rem;
+  font-family: Inter, sans-serif;
+  background-color: var(--cinza-claro);
+  min-height: 100vh;
+  position: relative;
+}
+
+h1 {
+  color: var(--roxo-escuro);
+  margin-bottom: 1.5rem;
+}
+
+/* Botão flutuante + */
+.fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--roxo-principal);
+  color: var(--branco);
+  font-size: 2.5rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.fab:hover {
+  background-color: var(--roxo-escuro);
+}
+
+.opportunity-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.opportunity-item {
+  background: var(--branco);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  color: var(--roxo-escuro);
+}
+
+.opportunity-item h3 {
+  margin-bottom: 0.5rem;
+}
+
+.opportunity-item p {
+  margin-bottom: 0.3rem;
+}
+
+.opportunity-item small {
+  color: var(--roxo-clarinho);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: var(--branco);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  color: var(--roxo-escuro);
+}
+
+.form-opportunity label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.form-opportunity input[type="text"],
+.form-opportunity textarea {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--roxo-principal);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  outline-offset: 2px;
+  outline-color: var(--roxo-principal);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modal-buttons button {
+  padding: 0.5rem 1.2rem;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.modal-buttons button[type="submit"] {
+  background-color: var(--roxo-principal);
+  color: var(--branco);
+  transition: background-color 0.3s ease;
+}
+
+.modal-buttons button[type="submit"]:hover:not(:disabled) {
+  background-color: var(--roxo-escuro);
+}
+
+.modal-buttons button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-buttons button[type="button"] {
+  background-color: var(--roxo-clarinho);
+  color: var(--roxo-escuro);
+  transition: background-color 0.3s ease;
+}
+
+.modal-buttons button[type="button"]:hover:not(:disabled) {
+  background-color: #b2a7d9;
+}
+
+.error-msg {
+  color: red;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.success-msg {
+  color: green;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilos para TagsInput */
+.tags-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: 2px solid var(--roxo-principal);
+  padding: 8px;
+  border-radius: 12px;
+  max-width: 100%;
+}
+
+.tag {
+  background-color: var(--roxo-principal);
+  color: var(--branco);
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  user-select: none;
+}
+
+.tag button {
+  background: none;
+  border: none;
+  color: var(--branco);
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1;
+}

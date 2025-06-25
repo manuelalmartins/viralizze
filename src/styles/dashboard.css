@@ -1,0 +1,44 @@
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.container h2 {
+  color: var(--roxo-principal);
+  margin-bottom: 20px;
+}
+
+.dashboard-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.dashboard-form input,
+.dashboard-form textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.dashboard-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.dashboard-form button {
+  background-color: var(--roxo-principal);
+  color: var(--branco);
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dashboard-form button:hover {
+  background-color: var(--roxo-escuro);
+}

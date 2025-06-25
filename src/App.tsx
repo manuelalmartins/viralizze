@@ -1,18 +1,24 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import LoginInfluencer from './pages/LoginInfluencer';
+import RegisterInfluencer from './pages/RegisterInfluencer';
 import Home from './pages/Home'
-import DashboardInfluencer from './pages/DashboardInfluenciador';
+import DashboardInfluencer from './pages/DashboardInfluencer';
+import LoginBrand from './pages/LoginBrand';
+import RegisterBrand from './pages/RegisterBrand';
+import DashboardBrand from './pages/DashboardBrand';
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path= "/home" element={<Home />} />
-        <Route path= "/dashboardinfluencer" element= {<DashboardInfluencer />}/>
+        <Route path="/login-influencer" element={<LoginInfluencer />} />
+        <Route path="/register-influencer" element={<RegisterInfluencer />} />
+        <Route path= "/" element={<Home />} />
+        <Route path= "/login-brand" element={<LoginBrand />}/>
+        <Route path= "/register-brand" element={<RegisterBrand/>}/>
+        <Route path= "/dashboard-influencer" element= {<DashboardInfluencer />}/>
+        <Route path= "/dashboard-brand" element = {<DashboardBrand/>}/>
       </Routes>
     </Router>
   );

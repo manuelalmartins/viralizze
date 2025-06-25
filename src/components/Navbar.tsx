@@ -10,9 +10,9 @@ function Navbar() {
         </Link>
 
         <nav className="navbar-links">
-          <Link to="/home">Início</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Cadastro</Link>
+          <Link to="/">Início</Link>
+          <Link to="/register-brand">Sou uma Marca</Link>
+          <Link to="/register-influencer">Sou um influenciador</Link>
         </nav>
       </div>
     </header>

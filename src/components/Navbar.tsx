@@ -5,10 +5,11 @@ function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
-          Viralizze
-        </Link>
-
+        <img
+          src="."
+          alt="Viralizze"
+          className="navbar-logo"
+        />
         <nav className="navbar-links">
           <Link to="/">Início</Link>
           <Link to="/register-brand">Sou uma Marca</Link>

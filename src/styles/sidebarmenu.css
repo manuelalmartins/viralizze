@@ -1,0 +1,72 @@
+:root {
+  --roxo-escuro: #240046;
+  --roxo-principal: #996FD6;
+  --roxo-clarinho: #D0C9EA;
+  --branco: #ffffff;
+  --cinza-claro: #f4f4f4;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--roxo-escuro);
+  color: var(--branco);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.sidebar.closed {
+  width: 60px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: var(--branco);
+  font-size: 1.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+  flex-grow: 1;
+}
+
+.menu-item {
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.menu-item:hover,
+.menu-item.active {
+  background-color: var(--roxo-principal);
+}
+
+.menu-item .icon {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.sidebar.closed .menu-item .label {
+  display: none;
+}
+
+.menu-item:focus {
+  outline: 2px solid var(--roxo-
+principal);
+  outline-offset: -2px; /* For accessibility */
+}

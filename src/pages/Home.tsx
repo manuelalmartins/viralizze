@@ -7,7 +7,7 @@ function Home() {
   const navigate = useNavigate();
 
   const handleStartClick = () => {
-    navigate("/login");
+    navigate("/register-influencer");
   };
 
   return (

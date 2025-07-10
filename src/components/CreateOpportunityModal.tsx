@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/opportunitymodal.css'
+import '../styles/opportunitymodal.css';
 
 interface OpportunityModalProps {
   opportunity?: {
@@ -59,10 +59,6 @@ const OpportunityModal: React.FC<OpportunityModalProps> = ({ opportunity, onClos
           .filter((tag) => tag.length > 0),
       };
 
-      if (!opportunity) {
-        Object.assign(body, { brandId });
-      }
-
       const url = opportunity
         ? `http://localhost:3333/opportunities/${opportunity.id}`
         : 'http://localhost:3333/opportunities';
@@ -71,7 +67,10 @@ const OpportunityModal: React.FC<OpportunityModalProps> = ({ opportunity, onClos
 
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'brand-id': brandId, // <-- AGORA VAI NO HEADER
+        },
         body: JSON.stringify(body),
       });
 

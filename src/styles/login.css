@@ -176,20 +176,26 @@ body {
   padding-right: 2.8rem; /* espaço para o botão do olho */
 }
 
-.toggle-password-btn {
-  position: absolute;
-  right: 0.6rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
+.forgot-password-button {
+  display: block;
+  margin-top: 0.3rem;
+  margin-left: auto;
+  background: none;
   border: none;
-  cursor: pointer;
-  font-size: 1.3rem;
-  user-select: none;
   color: var(--roxo-principal);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s ease;
 }
 
-.toggle-password-btn:hover {
+.forgot-password-button:hover {
+  color: var(--roxo-escuro);
+}
+
+
+.forgot-password-button:hover {
   color: var(--roxo-escuro);
 }
 

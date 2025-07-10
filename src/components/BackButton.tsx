@@ -7,7 +7,7 @@ const BackButton: React.FC = () => {
 
   return (
     <button className="voltar-button" onClick={() => navigate(-1)}>
-      ← Voltar
+      Voltar
     </button>
   );
 };

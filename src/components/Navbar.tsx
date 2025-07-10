@@ -5,14 +5,15 @@ function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
-          Viralizze
-        </Link>
-
+        <img
+          src="."
+          alt="Viralizze"
+          className="navbar-logo"
+        />
         <nav className="navbar-links">
-          <Link to="/home">Início</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Cadastro</Link>
+          <Link to="/">Início</Link>
+          <Link to="/register-brand">Sou uma Marca</Link>
+          <Link to="/register-influencer">Sou um influenciador</Link>
         </nav>
       </div>
     </header>

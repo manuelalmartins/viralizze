@@ -1,0 +1,213 @@
+:root {
+  --roxo-principal: #995fd9;
+  --roxo-escuro: #6a3ea1;
+  --roxo-clarinho: #e3d6f8;
+}
+
+.dashboard-container {
+  padding: 1.5rem;
+  max-width: 1000px;
+  margin: auto;
+  font-family: 'Inter', sans-serif;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  color: var(--roxo-escuro);
+  font-size: 1.5rem;
+}
+
+.fab {
+  background-color: var(--roxo-principal);
+  color: white;
+  font-size: 2rem;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.fab:hover {
+  background-color: var(--roxo-escuro);
+}
+
+.opportunity-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.opportunity-card {
+  background: white;
+  padding: 1.2rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(153, 111, 214, 0.15);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.opportunity-card:hover {
+  box-shadow: 0 12px 24px rgba(153, 111, 214, 0.3);
+  transform: translateY(-3px);
+}
+
+.opportunity-title {
+  color: var(--roxo-escuro);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.opportunity-card p {
+  font-size: 0.95rem;
+  margin: 0.3rem 0;
+}
+
+.opportunity-card small {
+  font-size: 0.75rem;
+  color: #777;
+  margin-top: 0.5rem;
+}
+
+.hashtags {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.hashtag {
+  background-color: var(--roxo-clarinho);
+  color: var(--roxo-escuro);
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.edit-btn,
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--roxo-principal);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.edit-btn:hover {
+  color: var(--roxo-escuro);
+}
+
+.delete-btn:hover {
+  color: #d9534f;
+}
+
+.view-applicants-btn {
+  margin-top: 0.8rem;
+  background-color: var(--roxo-principal);
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-applicants-btn:hover {
+  background-color: var(--roxo-escuro);
+}
+
+.apply-button {
+  margin-top: 1rem;
+  background-color: var(--roxo-principal);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.apply-button:hover:not(:disabled) {
+  background-color: var(--roxo-escuro);
+}
+
+.apply-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.delete-confirmation {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  background: #fff3f3;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(217, 83, 79, 0.6);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-weight: 600;
+  color: #d9534f;
+  z-index: 10;
+}
+
+.confirm-btn,
+.cancel-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.confirm-btn {
+  color: #d9534f;
+  border: 1px solid #d9534f;
+}
+
+.confirm-btn:hover {
+  background: #d9534f;
+  color: white;
+}
+
+.cancel-btn {
+  color: var(--roxo-principal);
+  border: 1px solid var(--roxo-principal);
+}
+
+.cancel-btn:hover {
+  background: var(--roxo-principal);
+  color: white;
+}
+
+.error-msg {
+  color: #d9534f;
+  text-align: center;
+  margin-top: 1rem;
+}

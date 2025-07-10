@@ -1,70 +1,174 @@
+:root {
+  --roxo-escuro: #240046;
+  --roxo-principal: #996FD6;
+  --roxo-clarinho: #D0C9EA;
+  --branco: #ffffff;
+  --cinza-claro: #f4f4f4;
+}
+
 .home-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(to bottom right, #fdfbfb, #ebedee);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom right, var(--branco), var(--cinza-claro));
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.home-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.home-banner {
+  max-width: 300px;
+  margin-bottom: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.home-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--roxo-escuro);
+  margin-bottom: 1rem;
+}
+
+.home-description {
+  max-width: 800px;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #444;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+}
+
+.home-button {
+  background-color: var(--roxo-principal);
+  color: var(--branco);
+  font-size: 1.1rem;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+  background-color: var(--roxo-escuro);
+}
+
+/* 🔥 Features Section */
+.features-section {
+  margin-top: 4rem;
+}
+
+.features-section h2 {
+  color: var(--roxo-escuro);
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+.features {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.feature-card {
+  background: var(--branco);
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  width: 280px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card h3 {
+  color: var(--roxo-principal);
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  color: #555;
+  font-size: 1rem;
+}
+
+/* ⭐ Testimonials Section */
+.testimonials-section {
+  margin-top: 4rem;
+}
+
+.testimonials-section h2 {
+  color: var(--roxo-escuro);
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+.testimonials {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.testimonial-card {
+  background: var(--cinza-claro);
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  width: 320px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-card p {
+  font-style: italic;
+  color: #333;
+}
+
+.testimonial-card span {
+  display: block;
+  margin-top: 10px;
+  color: var(--roxo-principal);
+  font-weight: bold;
+}
+
+/* 🚀 Call to Action */
+.cta-final {
+  margin-top: 5rem;
+}
+
+.cta-final h2 {
+  color: var(--roxo-escuro);
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+/* 📱 Responsividade */
+@media (max-width: 768px) {
+  .home-title {
+    font-size: 2.2rem;
   }
-  
-  .home-main {
-    flex-grow: 1;
-    display: flex;
+
+  .home-description {
+    font-size: 1rem;
+  }
+
+  .home-banner {
+    max-width: 80%;
+  }
+
+  .features,
+  .testimonials {
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    text-align: center;
   }
-  
-  .home-banner {
-    max-width: 300px;
-    margin-bottom: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .home-title {
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: #6c2bd9;
-    margin-bottom: 1rem;
-  }
-  
-  .home-description {
-    max-width: 800px;
-    font-size: 1.25rem;
-    line-height: 1.6;
-    color: #444;
-    padding: 0 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .home-button {
-    background-color: #6c2bd9;
-    color: white;
-    font-size: 1.1rem;
-    padding: 0.75rem 2rem;
-    border: none;
-    border-radius: 2rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .home-button:hover {
-    background-color: #5823b7;
-  }
-  
-  @media (max-width: 768px) {
-    .home-title {
-      font-size: 2.2rem;
-    }
-  
-    .home-description {
-      font-size: 1rem;
-    }
-  
-    .home-banner {
-      max-width: 80%;
-    }
-  }
-  
+}

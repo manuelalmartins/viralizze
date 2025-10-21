@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  FaBars, FaTimes, FaUser, FaBriefcase, FaRss, FaEnvelope, FaCog, FaSignOutAlt, FaHashtag, FaBullhorn,
+  FaBars,
+  FaTimes,
+  FaUser,
+  FaBriefcase,
+  FaRss,
+  FaEnvelope,
+  FaCog,
+  FaSignOutAlt,
+  FaHashtag,
+  FaBullhorn,
 } from 'react-icons/fa';
-import '../styles/sidebarmenu.css';
 
 interface SidebarMenuProps {
   userType: 'brand' | 'influencer';
   activeItem: string;
   onSelectMenuItem: (item: string) => void;
+  isOpen: boolean;
+  toggleOpen: () => void;
 }
 
-const SidebarMenu: React.FC<SidebarMenuProps> = ({ userType, activeItem, onSelectMenuItem }) => {
-  const [isOpen, setIsOpen] = useState(true);
-
-  const toggleMenu = () => setIsOpen(!isOpen);
-
+const SidebarMenu: React.FC<SidebarMenuProps> = ({
+  userType,
+  activeItem,
+  onSelectMenuItem,
+  isOpen,
+  toggleOpen,
+}) => {
   const menuItemsBrand = [
     { key: 'profile', label: 'Perfil', icon: <FaUser /> },
     { key: 'opportunities', label: 'Minhas Oportunidades', icon: <FaBriefcase /> },
@@ -35,9 +47,26 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ userType, activeItem, onSelec
 
   const items = userType === 'brand' ? menuItemsBrand : menuItemsInfluencer;
 
+  const handleClick = (key: string) => {
+    if (key === 'logout') {
+      // Logout completo: limpa localStorage, redireciona conforme userType
+      localStorage.clear();
+
+      if (userType === 'brand') {
+        window.location.href = '/login-brand';
+      } else if (userType === 'influencer') {
+        window.location.href = '/login-influencer';
+      } else {
+        window.location.href = '/login';
+      }
+    } else {
+      onSelectMenuItem(key);
+    }
+  };
+
   return (
-    <nav className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
-      <button className="toggle-btn" onClick={toggleMenu} aria-label="Toggle Menu">
+    <nav className={`sidebar ${isOpen ? '' : 'closed'}`}>
+      <button className="toggle-btn" onClick={toggleOpen} aria-label="Toggle Menu">
         {isOpen ? <FaTimes /> : <FaBars />}
       </button>
       <ul className="menu-list">
@@ -45,10 +74,10 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ userType, activeItem, onSelec
           <li
             key={key}
             className={`menu-item ${activeItem === key ? 'active' : ''}`}
-            onClick={() => onSelectMenuItem(key)}
+            onClick={() => handleClick(key)}
             tabIndex={0}
             role="button"
-            onKeyDown={e => e.key === 'Enter' && onSelectMenuItem(key)}
+            onKeyDown={(e) => e.key === 'Enter' && handleClick(key)}
           >
             <span className="icon">{icon}</span>
             {isOpen && <span className="label">{label}</span>}

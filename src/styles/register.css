@@ -1,15 +1,13 @@
+
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--cinza-claro);
 }
 
-/* Container principal */
 .register-container {
   display: flex;
   min-height: 100vh;
 }
-
-/* Seção esquerda */
 .left-section {
   background: linear-gradient(135deg, #240046, #996FD6);
   width: 70%;
@@ -51,8 +49,6 @@ body {
 .left-section a:hover {
   color: var(--roxo-clarinho);
 }
-
-/* Seção direita */
 .right-section {
   width: 50%;
   display: flex;
@@ -71,8 +67,6 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
-
-/* Botão de voltar */
 .voltar-button {
   position: absolute;
   top: 2rem;
@@ -86,10 +80,10 @@ body {
 }
 
 .voltar-button:hover {
-  color: #5d39cc;
+  color: --var(--roxo-escuro);
+  transition: color 0.3s ease;  
 }
 
-/* Título do formulário */
 .register-title {
   font-size: 2rem;
   font-weight: bold;
@@ -98,7 +92,6 @@ body {
   margin-bottom: 1.5rem;
 }
 
-/* Campos do formulário */
 .register-form input {
   width: 100%;
   padding: 1rem;
@@ -106,6 +99,36 @@ body {
   border-radius: 8px;
   border: 1px solid #ddd;
   font-size: 1rem;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding: 1rem;
+  padding-right: 2.8rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  right: 0.9rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--roxo-principal);
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.eye-icon:hover {
+  color: var(--roxo-escuro);
 }
 
 /* Botão de cadastro */
@@ -123,6 +146,23 @@ body {
 
 .register-form button:hover {
   background-color: var(--roxo-escuro);
+}
+
+/* Link para login */
+.register-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.register-link a {
+  color: var(--roxo-principal);
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.register-link a:hover {
+  color: var(--roxo-escuro);
 }
 
 /* Responsividade */

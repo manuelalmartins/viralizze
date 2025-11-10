@@ -1,29 +1,29 @@
-
 :root {
   --roxo-escuro: #240046;
   --roxo-principal: #996FD6;
-  --roxo-clarinho: #D0C9EA;
-  --branco: #ffffff;
-  --cinza-claro: #f4f4f4;
+  --roxo-claro: #D0C9EA;
+  --roxo-super-claro: #f3e5f5;
+  --branco: #fff;
+  --cinza-claro: #f8f9fa;
+  --cinza-medio: #d1d1d1;
+  --cinza-escuro: #444;
+  --sombra-leve: rgba(0, 0, 0, 0.07);
+  --sombra-forte: rgba(0, 0, 0, 0.15);
+  --transicao-suave: all 0.3s ease;
+  --font-primary: 'Poppins', sans-serif;
 }
-
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: var(--font-primary);
 }
 
 body {
-  font-family: Inter;
   background-color: var(--cinza-claro);
-}
-
-
-.container {
+  color: var(--roxo-escuro);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 3rem; 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

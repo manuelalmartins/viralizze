@@ -7,6 +7,8 @@ import DashboardInfluencer from './pages/DashboardInfluencer';
 import LoginBrand from './pages/LoginBrand';
 import RegisterBrand from './pages/RegisterBrand';
 import DashboardBrand from './pages/DashboardBrand';
+import SetupProfile from './pages/SetupProfile';
+import ProfilePage from './pages/ProfilePage';
 
 const App: React.FC = () => {
   return (
@@ -19,6 +21,9 @@ const App: React.FC = () => {
         <Route path= "/register-brand" element={<RegisterBrand/>}/>
         <Route path= "/dashboard-influencer" element= {<DashboardInfluencer />}/>
         <Route path= "/dashboard-brand" element = {<DashboardBrand/>}/>
+        <Route path="/setup-profile/:id" element={<SetupProfile />} />
+        <Route path="/profile/:id" element={<ProfilePage />} />
+
       </Routes>
     </Router>
   );

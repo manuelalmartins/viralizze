@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash, FaEnvelope, FaLock, FaArrowLeft } from 'react-icons/fa';
 import '../styles/register.css';
-import BackButton from '../components/BackButton';
 
 const RegisterBrand: React.FC = () => {
-  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
-  const [empresa, setEmpresa] = useState('');
-  const [cargo, setCargo] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [showSenha, setShowSenha] = useState(false);
+  const [showConfirmarSenha, setShowConfirmarSenha] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,96 +20,101 @@ const RegisterBrand: React.FC = () => {
       return;
     }
 
+    setLoading(true);
     try {
       const response = await fetch('http://localhost:3333/auth/brand/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: nome,
-          email,
-          password: senha,
-          companyName: empresa,
-          role: cargo,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: senha }),
       });
 
       const data = await response.json();
-
       if (!response.ok) {
         alert(data.error || 'Erro ao cadastrar marca.');
         return;
       }
 
-      alert('Marca cadastrada com sucesso!');
-    } catch (error) {
+      localStorage.setItem('brandId', data.brand.id);
+      localStorage.setItem('user', JSON.stringify(data.brand));
+      navigate(`/setup-profile-brand/${data.brand.id}`);
+    } catch {
       alert('Erro de conexão com o servidor.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="register-container">
-      <div className="left-section">
-        <h1>Seja bem-vinda, Marca!</h1>
-        <p>Quer ser um de nossos Influenciadores? <Link to="/login-brand">Faça login aqui.</Link></p>
-      </div>
+    <div className="register-wrapper">
+      <div className="gradient-bg" />
 
-      <div className="right-section">
-        <BackButton />
-        <div className="register-box">
-          <h2 className="register-title">Cadastre sua Marca</h2>
-          <form onSubmit={handleRegister} className="register-form">
-            <input
-              type="text"
-              placeholder="Nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              required
-            />
+      {/* 🔹 Botão Voltar */}
+      <button className="back-btn" onClick={() => navigate(-1)}>
+        <FaArrowLeft /> Voltar
+      </button>
+
+      <div className="register-card">
+        <h1 className="brand-logo">Viralizze</h1>
+        <h2>Crie sua conta de marca</h2>
+        <p className="subtitle">
+          Conecte sua marca a influenciadores que compartilham o seu propósito.
+        </p>
+
+        <form onSubmit={handleRegister}>
+          <div className="input-icon">
+            <FaEnvelope />
             <input
               type="email"
-              placeholder="E-mail"
+              placeholder="E-mail da marca"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+          </div>
+
+          <div className="password-wrapper">
+            <FaLock className="lock-icon" />
             <input
-              type="text"
-              placeholder="Nome da Empresa"
-              value={empresa}
-              onChange={(e) => setEmpresa(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Cargo"
-              value={cargo}
-              onChange={(e) => setCargo(e.target.value)}
-              required
-            />
-            <input
-              type="password"
+              type={showSenha ? 'text' : 'password'}
               placeholder="Senha"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               required
             />
+            <span onClick={() => setShowSenha(!showSenha)} className="eye-icon">
+              {showSenha ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+          <div className="password-wrapper">
+            <FaLock className="lock-icon" />
             <input
-              type="password"
-              placeholder="Confirme a Senha"
+              type={showConfirmarSenha ? 'text' : 'password'}
+              placeholder="Confirmar senha"
               value={confirmarSenha}
               onChange={(e) => setConfirmarSenha(e.target.value)}
               required
             />
-            <button type="submit">Cadastrar</button>
-            <div className="register-link">
-              <p>
-                Já tem uma conta? <Link to="/login-brand">Faça Login</Link>
-              </p>
-            </div>
-          </form>
-        </div>
+            <span
+              onClick={() => setShowConfirmarSenha(!showConfirmarSenha)}
+              className="eye-icon"
+            >
+              {showConfirmarSenha ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+          <button type="submit" disabled={loading}>
+            {loading ? 'Cadastrando...' : 'Cadastrar'}
+          </button>
+
+          <p className="login-link">
+            Já tem uma conta? <Link to="/login-brand">Entrar</Link>
+          </p>
+
+          <p className="switch-register">
+            É influenciador? <Link to="/register-influencer">Cadastre-se aqui</Link>
+          </p>
+        </form>
       </div>
     </div>
   );

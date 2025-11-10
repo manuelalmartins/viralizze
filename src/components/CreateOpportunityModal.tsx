@@ -53,6 +53,7 @@ const OpportunityModal: React.FC<OpportunityModalProps> = ({ opportunity, onClos
         title,
         description,
         requirements,
+        brandId,  // <--- Adicionado aqui, manda no corpo!
         hashtags: hashtags
           .split(',')
           .map((tag) => tag.trim())
@@ -69,7 +70,7 @@ const OpportunityModal: React.FC<OpportunityModalProps> = ({ opportunity, onClos
         method,
         headers: {
           'Content-Type': 'application/json',
-          'brand-id': brandId, // <-- AGORA VAI NO HEADER
+          'brand-id': brandId,  // mantém no header também
         },
         body: JSON.stringify(body),
       });

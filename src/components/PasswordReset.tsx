@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import '../styles/passwordreset.css';
+import React, { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import "../styles/passwordreset.css";
 
 interface PasswordResetProps {
   isOpen: boolean;
@@ -17,198 +17,257 @@ const PasswordReset: React.FC<PasswordResetProps> = ({
   verifyCodeEndpoint,
   resetPasswordEndpoint,
 }) => {
-  const [step, setStep] = useState<'email' | 'code' | 'newPassword'>('email');
-  const [email, setEmail] = useState('');
-  const [code, setCode] = useState<string[]>(Array(6).fill(''));
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [step, setStep] = useState<"email" | "code" | "password" | "done">(
+    "email"
+  );
+  const [email, setEmail] = useState("");
+  const [code, setCode] = useState<string[]>(Array(6).fill(""));
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [showPw, setShowPw] = useState(false);
+  const [showPw2, setShowPw2] = useState(false);
 
-  const resetState = () => {
-    setStep('email');
-    setEmail('');
-    setCode(Array(6).fill(''));
-    setNewPassword('');
-    setConfirmPassword('');
-    setShowNewPassword(false);
-    setShowConfirmPassword(false);
-    setStatusMessage(null);
-  };
-
-  const handleRequestReset = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatusMessage(null);
-    try {
-      const res = await fetch(requestResetEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setStatusMessage(data.error || 'Erro ao enviar código.');
-      } else {
-        setStatusMessage('Código enviado para seu e-mail.');
-        setStep('code');
-      }
-    } catch {
-      setStatusMessage('Erro ao conectar ao servidor.');
-    }
-  };
-
-  const handleVerifyCode = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatusMessage(null);
-    try {
-      const res = await fetch(verifyCodeEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, code: code.join('') }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setStatusMessage(data.error || 'Código inválido.');
-      } else {
-        setStatusMessage('Código validado!');
-        setStep('newPassword');
-      }
-    } catch {
-      setStatusMessage('Erro ao conectar ao servidor.');
-    }
-  };
-
-  const handleResetPassword = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatusMessage(null);
-    if (newPassword !== confirmPassword) {
-      setStatusMessage('As senhas não coincidem.');
-      return;
-    }
-    try {
-      const res = await fetch(resetPasswordEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, code: code.join(''), newPassword }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setStatusMessage(data.error || 'Erro ao redefinir senha.');
-      } else {
-        setStatusMessage('Senha redefinida com sucesso!');
-        setTimeout(() => {
-          onClose();
-          resetState();
-        }, 2000);
-      }
-    } catch {
-      setStatusMessage('Erro ao conectar ao servidor.');
-    }
-  };
+  const [msg, setMsg] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
 
-  return (
-    <div className="passwordreset-overlay" onClick={onClose}>
-      <div className="passwordreset-modal" onClick={e => e.stopPropagation()}>
-        <h3 className="modal-title">Recuperar Senha</h3>
+  const closeAll = () => {
+    setEmail("");
+    setCode(Array(6).fill(""));
+    setPassword("");
+    setConfirm("");
+    setStep("email");
+    setMsg(null);
+    setLoading(false);
+    onClose();
+  };
 
-        {step === 'email' && (
-          <form onSubmit={handleRequestReset}>
+  const fakeDelay = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  const sendEmail = async (e: any) => {
+    e.preventDefault();
+    setMsg(null);
+    setLoading(true);
+    await fakeDelay(1000);
+
+    try {
+      const res = await fetch(requestResetEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setMsg(data.error || "Erro.");
+        setLoading(false);
+        return;
+      }
+
+      setStep("code");
+      setLoading(false);
+    } catch {
+      setMsg("Erro ao conectar.");
+      setLoading(false);
+    }
+  };
+
+  const verifyCode = async (e: any) => {
+    e.preventDefault();
+    setMsg(null);
+    setLoading(true);
+    await fakeDelay(1000);
+
+    try {
+      const res = await fetch(verifyCodeEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code: code.join("") }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setMsg(data.error || "Código inválido.");
+        document.querySelector(".pr-code-area")?.classList.add("shake");
+        setTimeout(() => {
+          document.querySelector(".pr-code-area")?.classList.remove("shake");
+        }, 600);
+        setLoading(false);
+        return;
+      }
+
+      setStep("password");
+      setLoading(false);
+    } catch {
+      setMsg("Erro ao conectar.");
+      setLoading(false);
+    }
+  };
+
+  const resetPassword = async (e: any) => {
+    e.preventDefault();
+    setMsg(null);
+
+    if (password !== confirm) {
+      setMsg("As senhas não coincidem.");
+      return;
+    }
+
+    setLoading(true);
+    await fakeDelay(1000);
+
+    try {
+      const res = await fetch(resetPasswordEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          code: code.join(""),
+          newPassword: password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setMsg(data.error || "Erro.");
+        setLoading(false);
+        return;
+      }
+
+      setStep("done");
+      setLoading(false);
+    } catch {
+      setMsg("Erro ao conectar.");
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="pr-overlay">
+      <div className="pr-modal">
+
+        <button className="pr-close" onClick={closeAll}>×</button>
+
+        {loading && (
+          <div className="pr-loading-overlay">
+            <div className="pr-spinner"></div>
+          </div>
+        )}
+
+        {step !== "done" && (
+          <h2 className="pr-title">Recuperar senha</h2>
+        )}
+
+        {step === "email" && (
+          <form onSubmit={sendEmail} className="pr-form fade">
             <input
-              className="input-large"
+              className="pr-input"
               type="email"
-              placeholder="Digite seu e-mail"
+              placeholder="Seu e-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <div className="modal-buttons">
-              <button type="submit">Enviar código</button>
-              <button type="button" onClick={onClose}>Cancelar</button>
-            </div>
+
+            <button className="pr-btn-primary" type="submit">
+              Enviar código
+            </button>
+
+            {msg && <p className="pr-msg">{msg}</p>}
           </form>
         )}
 
-        {step === 'code' && (
-          <form onSubmit={handleVerifyCode}>
-            <div className="code-inputs">
-              {code.map((digit, idx) => (
+        {step === "code" && (
+          <form onSubmit={verifyCode} className="pr-form fade">
+            <div className="pr-code-area">
+              {code.map((n, i) => (
                 <input
-                  key={idx}
-                  className="code-box"
+                  key={i}
+                  id={`pr-code-${i}`}
+                  className="pr-code-box"
                   type="text"
                   inputMode="numeric"
                   maxLength={1}
-                  value={digit}
+                  value={n}
                   onChange={(e) => {
-                    const val = e.target.value.replace(/\D/, '');
+                    const val = e.target.value.replace(/[^0-9]/g, "");
                     const newCode = [...code];
-                    newCode[idx] = val;
+                    newCode[i] = val;
                     setCode(newCode);
-                    if (val && idx < 5) {
-                      const next = document.getElementById(`code-${idx + 1}`);
-                      if (next) next.focus();
+
+                    if (val && i < 5) {
+                      document.getElementById(`pr-code-${i + 1}`)?.focus();
                     }
                   }}
-                  id={`code-${idx}`}
+                  onKeyDown={(e) => {
+                    if (e.key === "Backspace" && !code[i] && i > 0) {
+                      document.getElementById(`pr-code-${i - 1}`)?.focus();
+                    }
+                  }}
                 />
               ))}
             </div>
-            <div className="modal-buttons">
-              <button type="submit">Verificar código</button>
-              <button type="button" onClick={onClose}>Cancelar</button>
-            </div>
+
+            <button className="pr-btn-primary" type="submit">
+              Verificar código
+            </button>
+
+            {msg && <p className="pr-msg">{msg}</p>}
           </form>
         )}
 
-        {step === 'newPassword' && (
-          <form onSubmit={handleResetPassword}>
-            <div className="password-input-wrapper">
+        {step === "password" && (
+          <form onSubmit={resetPassword} className="pr-form fade">
+            <div className="pr-pw-group">
               <input
-                className="input-large"
-                type={showNewPassword ? 'text' : 'password'}
+                className="pr-input"
+                type={showPw ? "text" : "password"}
                 placeholder="Nova senha"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <button
-                type="button"
-                className="toggle-password-btn"
-                onClick={() => setShowNewPassword(!showNewPassword)}
-              >
-                {showNewPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
+              <span className="pr-eye" onClick={() => setShowPw(!showPw)}>
+                {showPw ? <FaEyeSlash /> : <FaEye />}
+              </span>
             </div>
 
-            <div className="password-input-wrapper">
+            <div className="pr-pw-group">
               <input
-                className="input-large"
-                type={showConfirmPassword ? 'text' : 'password'}
-                placeholder="Confirmar nova senha"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="pr-input"
+                type={showPw2 ? "text" : "password"}
+                placeholder="Confirmar senha"
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
                 required
               />
-              <button
-                type="button"
-                className="toggle-password-btn"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              >
-                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
+              <span className="pr-eye" onClick={() => setShowPw2(!showPw2)}>
+                {showPw2 ? <FaEyeSlash /> : <FaEye />}
+              </span>
             </div>
 
-            <div className="modal-buttons">
-              <button type="submit">Redefinir senha</button>
-              <button type="button" onClick={onClose}>Cancelar</button>
-            </div>
+            <button className="pr-btn-primary" type="submit">
+              Redefinir senha
+            </button>
+
+            {msg && <p className="pr-msg">{msg}</p>}
           </form>
         )}
 
-        {statusMessage && <p className="reset-status">{statusMessage}</p>}
+        {step === "done" && (
+          <div className="pr-success-box fade">
+            <div className="pr-success-icon">✔</div>
+            <p className="pr-success-text">Senha redefinida com sucesso!</p>
+            <button className="pr-btn-primary" onClick={closeAll}>
+              Voltar ao login
+            </button>
+          </div>
+        )}
+
       </div>
     </div>
   );
